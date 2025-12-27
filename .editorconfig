@@ -1,0 +1,39 @@
+# cracked editorconfig
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 100
+
+[*.{py,sh,xml,java}]
+indent_style = space
+indent_size = 4
+
+[*.{txt,md,yaml,yml,puml,json}]
+indent_style = space
+indent_size = 2
+
+[CMakeLists.txt]
+indent_style = space
+indent_size = 2
+
+# Based on Linux kernel coding style
+
+[*.{h,h{xx,++,h,pp},c,c{xx,++,c,pp}}]
+indent_style = tab
+indent_size = 8
+
+# Ignore the rules on dependencies
+
+[deps/**]
+charset = unset
+end_of_line = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+max_line_length = unset
+indent_style = unset
+indent_size = unset
