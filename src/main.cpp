@@ -3,6 +3,9 @@
 #include <fstream>
 #include <sstream>
 
+#include <tokens.h>
+#include <lexer.h>
+
 int main(int argc, char* argv[]) {
     if(argc != 2) {
         std::cerr << "Please provide a .ced file to compile. Ex: " << argv[0] << " <path_to_file.ced>" << std::endl;
@@ -19,7 +22,9 @@ int main(int argc, char* argv[]) {
 	std::stringstream buffer;
 	buffer << file.rdbuf();
     std::string file_content = buffer.str();
-	std::cout << file_content << std::endl;
+
+    Token token = createToken(TokenType::EOF_TOKEN, "aaa");
+    printToken(token);
 
     return 0;
 }
