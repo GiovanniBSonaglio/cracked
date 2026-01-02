@@ -23,8 +23,8 @@ int main(int argc, char* argv[]) {
 	buffer << file.rdbuf();
     std::string file_content = buffer.str();
 
-    Token token = createToken(TokenType::EOF_TOKEN, "aaa");
-    printToken(token);
+    Lexer *lexer = new Lexer(file_content);
+    lexer->tokenize();
 
     return 0;
 }

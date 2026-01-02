@@ -10,6 +10,7 @@
                 "-I${workspaceFolder}\\include",
                 "${file}",
                 "tokens.cpp",
+                "lexer.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

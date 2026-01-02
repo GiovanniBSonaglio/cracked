@@ -8,8 +8,7 @@ This readme stands as an internal user / developer / maintainer guide.
 
 ## What is Cracked ?
 
-Cracked is a programming language with C-like syntax, that also offers some C++ features, such as OOP.
-
+Cracked is a programming language with C-like syntax, that also offers some quality of life improvements (mostly already present in C++).
 
 ## Project file tree understanding
 

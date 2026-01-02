@@ -1,0 +1,90 @@
+struct enum { RED, GREEN, BLUE } Color;
+
+struct Point {
+    int x;
+    int y;
+};
+
+union Data {
+    int i;
+    double d;
+    char s[16];
+};
+
+char *greeting = "Hello, \"lexer\" test!\n";
+char single_quote = '\'';
+char newline = '\n';
+
+int add(int a, int b) {
+    return a + b;
+}
+
+inline int clamp(int v, int lo, int hi) {
+    return v < lo ? lo : (v > hi ? hi : v);
+}
+
+void test_types_and_literals(void) {
+    int i = 42;
+    unsigned long ul = 0xFFu;
+    long long big = 123456789012345LL;
+    float f = 3.14f;
+    double e = 1.0e-3;
+    char *s = "A string with \\n and \\\"quotes\\\"";
+    const char *nullish = NULL;
+    bool ok = true;
+    int arr[3] = {1, 2, 3};
+
+    ++i;
+    i += 10;
+    arr[0] = -arr[1];
+    if (i > 0 && ok) {
+        printf("%s", greeting);
+    } else {
+        printf("No greeting\\n");
+    }
+}
+
+void test_struct_and_union(void) {
+    struct Point p = { .x = 1, .y = 2 };
+    union Data d;
+    d.i = 100;
+    d.d = 3.1415;
+    struct Point *pp = &p;
+    pp->x = 5;
+    printf("Point: %d, %d\\n", pp->x, pp->y);
+}
+
+int switch_case_example(int x) {
+    switch (x) {
+        case 0: return 0;
+        case 1: return 1;
+        default: return -1;
+    }
+}
+
+int main(void) {
+    test_types_and_literals();
+    test_struct_and_union();
+    int r = add(5, SQUARE(3));
+    printf("r = %d\\n", r);
+    int s = switch_case_example(2);
+    printf("switch returned %d\\n", s);
+
+    // loop examples
+    for (int i = 0; i < 3; ++i) {
+        if (i == 1) continue;
+        printf("i = %d\\n", i);
+    }
+
+    int k = 0;
+    while (k < 2) {
+        k++;
+    }
+
+    // tricky identifiers and tokens
+    int _leading_underscore = 7;
+    int __double_underscore = 8; // reserved — lexer should detect but still tokenize
+    char *foreach_like = "foreach"; // not a C keyword, used to test identifiers
+
+    return 0;
+}

@@ -1,14 +1,20 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 
 enum class TokenType {
     EOF_TOKEN, // End of file
 
     // Literals
+	IDENTIFIER,
     NUMBER,
 	STRING,
-	IDENTIFIER,
+    CHAR_VAL,
+
+    // Ignoreds
+    COMMENT,
+    WHITESPACE,
 
     // Brackets
     OPEN_BRACKET,
@@ -18,10 +24,19 @@ enum class TokenType {
 	OPEN_PAREN,
 	CLOSE_PAREN,
 
-    /**** Keywords ****/
+    /**** Reserved Keywords ****/
+    // Data types
+    INT,
+    FLOAT,
+    CHAR,
+    BOOL,
+    VOID,
+    STRING_TYPE,
+    STRUCT,
+    ENUM,
+    UNION,
 
     // Program structure
-    FUNCTION,
     RETURN,
     IF,
     ELSE,
@@ -37,22 +52,6 @@ enum class TokenType {
     SWITCH,
     CASE,
     DEFAULT,
-    
-    // Data types
-    INT,
-    FLOAT,
-    DOUBLE,
-    CHAR,
-    BOOL,
-    VOID,
-    STRING_TYPE,
-    STRUCT,
-
-    // Variable management
-    CLASS,
-    NEW,
-    DELETE,
-    CONST,
 
     // Boolean literals
     TRUE,
@@ -62,38 +61,76 @@ enum class TokenType {
     NULLPTR,
     NULL_VALUE,
 
+    // Try-except
+    TRY,
+    EXCEPT,
+    THROW,
+
+    INCLUDE,
+
     /**** ******** ****/
     
     // Operators
+    ADDRESS,
     PLUS,
 	DASH,
 	SLASH,
 	STAR, // Also used for pointers
     CARET, // Exponentiation
-	PERCENT,
-
-    // Comparison
-    EQUALS,
-	NOT,
-	NOT_EQUALS,
-	LESS,
-	LESS_EQUALS,
-	GREATER,
-	GREATER_EQUALS,
-
-    // Assignment
-    ASSIGN,
-    ASSIGN_AND,
+	MODULE,
 
     // Delimiters
+    QUESTION,
     COMMA,
+    COLON,
     SEMICOLON,
     DOT,
     ARROW,
 
+    // Comparison
+    EQUALS,
+	NOT_EQUALS,
+	NOT,
+	LESS_EQUALS,
+	LESS,
+	GREATER_EQUALS,
+	GREATER,
+
+    // Assignment
+    ASSIGN,
+
     // Logical
     OR,
 	AND,
+};
+
+inline std::unordered_map<std::string, TokenType> reserved_identifiers_lu = {
+    {"int", TokenType::INT},
+    {"float", TokenType::FLOAT},
+    {"char", TokenType::CHAR},
+    {"bool", TokenType::BOOL},
+    {"void", TokenType::VOID},
+    {"string", TokenType::STRING_TYPE},
+    {"struct", TokenType::STRUCT},
+    {"enum", TokenType::ENUM},
+    {"return", TokenType::RETURN},
+    {"if", TokenType::IF},
+    {"else", TokenType::ELSE},
+    {"while", TokenType::WHILE},
+    {"for", TokenType::FOR},
+    {"foreach", TokenType::FOREACH},
+    {"continue", TokenType::CONTINUE},
+    {"break", TokenType::BREAK},
+    {"switch", TokenType::SWITCH},
+    {"case", TokenType::CASE},
+    {"default", TokenType::DEFAULT},
+    {"true", TokenType::TRUE},
+    {"false", TokenType::FALSE},
+    {"nullptr", TokenType::NULLPTR},
+    {"NULL", TokenType::NULL_VALUE},
+    {"try", TokenType::TRY},
+    {"except", TokenType::EXCEPT},
+    {"throw", TokenType::THROW},
 };
 
 typedef struct {
@@ -104,3 +141,7 @@ typedef struct {
 std::string tokenTypeToString(TokenType type);
 Token createToken(TokenType type, const std::string& value);
 void printToken(Token token);
+
+inline bool isIgnoreToken(TokenType type) {
+    return (type == TokenType::COMMENT || type == TokenType::WHITESPACE);
+}
