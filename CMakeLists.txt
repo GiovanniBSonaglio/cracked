@@ -11,3 +11,7 @@ set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
 add_executable(cracked_compiler ${SRC_DIR}/main.cpp ${SRC_DIR}/tokens.cpp ${SRC_DIR}/lexer.cpp)
 target_include_directories(cracked_compiler PUBLIC ${INCLUDE_DIR})
+
+# Unit tests
+include(CTest)
+add_subdirectory(utest)
