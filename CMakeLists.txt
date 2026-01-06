@@ -9,7 +9,15 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
-add_executable(cracked_compiler ${SRC_DIR}/main.cpp ${SRC_DIR}/tokens.cpp ${SRC_DIR}/lexer.cpp)
+set(COMPILER_SRCS
+    ${SRC_DIR}/lexer.cpp
+    ${SRC_DIR}/tokens.cpp
+)
+add_library(cracked_lib STATIC ${COMPILER_SRCS})
+target_include_directories(cracked_lib PUBLIC ${INCLUDE_DIR})
+
+add_executable(cracked_compiler ${SRC_DIR}/main.cpp)
+target_link_libraries(cracked_compiler PRIVATE cracked_lib)
 target_include_directories(cracked_compiler PUBLIC ${INCLUDE_DIR})
 
 # Unit tests

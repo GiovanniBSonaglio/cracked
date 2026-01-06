@@ -14,7 +14,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 add_executable(utest_lexer lexer_gtests.cpp)
-# Use absolute include path so MSVC can find headers regardless of build dir
+
 target_include_directories(utest_lexer PRIVATE ${INCLUDE_DIR})
-target_link_libraries(utest_lexer PRIVATE gtest_main)
+# Link the tested library plus gtest
+target_link_libraries(utest_lexer PRIVATE cracked_lib gtest_main)
 add_test(NAME lexer_gtests COMMAND utest_lexer)
