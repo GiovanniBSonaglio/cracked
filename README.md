@@ -1,23 +1,59 @@
 # Cracked Compiler
 
-Welcome to the Cracked Compiler repo.
+A compact C++ compiler for the Cracked language (.ced files). This repository contains the compiler sources, unit tests and CI configuration used by maintainers and contributors.
 
-This repo contains the source code for a compiler, written in C++, that allows for the compilation of **Cracked (.ced)** files.
+---
 
-This readme stands as an internal user / developer / maintainer guide.
+## Requirements:
+- CMake (>= 3.20)
+- A C++17-capable toolchain (MSVC on Windows, GCC/Clang on Linux/macOS)
 
-## What is Cracked ?
+## Quick start
 
-Cracked is a programming language with C-like syntax, that also offers some quality of life improvements (mostly already present in C++).
+From the project root (recommended out-of-source build):
 
-## Project file tree understanding
+* Create build directory and configure
+```bash
+cmake -S . -B build
+```
+
+* Build the compiler
+```bash
+cmake --build build
+```
+
+* Run the compiler
+```bash
+# Windows:
+build/Debug/cracked_compiler.exe
+
+# Linux / macOS
+./build/cracked_compiler
+```
+
+---
+
+## Unit tests (GoogleTest)
+
+* Build the test target:
+
+```bash
+cmake --build build --target utest_lexer
+```
+
+* Run tests
+
+```bash
+ctest --test-dir build --output-on-failure
+```
+
+---
 
 ```
 cracked
-    ├── README.md                         <-- Cracked compiler manual.
-    ├── include                           <-- Header files of the Cracked compiler.
-    ├── src                               <-- Source files of the Cracked compiler.
-    └── CMakeLists.txt                    <-- CMake file for building the project.
+    ├── include                           <-- Public header files
+    ├── src                               <-- Implementation files
+    ├── test                              <-- Example `.ced` files used for manual testing
+    ├── utest                             <-- GoogleTest unit tests and CMake test config
+    └── CMakeLists.txt                    <-- Top-level CMake configuration
 ```
-
-## Getting Started / Developer Guide
